@@ -1,0 +1,26 @@
+<div class="container moveDown">
+  <div *ngIf="!registerMode" style="text-align: center">
+    <h1>
+      hiiii
+    </h1>
+    <p class="lead">
+      Sign up if you havent
+    </p>
+    <div class="text-center">
+      <button class="btn btn-primary btn-lg mr-4" (click)="clickRegister()">
+        Sign up
+      </button>
+      <button class="btn btn-primary btn-lg">Learn More</button>
+    </div>
+  </div>
+
+  <div class="container">
+    <div *ngIf="registerMode" class="row justify-content-center">
+      <div class="col-4 mt-5">
+        <app-register
+          (cancelRegister)="cancelRegisterMode($event)"
+        ></app-register>
+      </div>
+    </div>
+  </div>
+</div>
