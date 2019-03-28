@@ -1,5 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { AuthService } from "../_services/auth.service";
+import { AlertifyService } from "../_services/alertify.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-nav",
@@ -8,31 +10,47 @@ import { AuthService } from "../_services/auth.service";
 })
 export class NavComponent implements OnInit {
   modelll: any = {};
+  usersName: any;
 
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private alertify: AlertifyService,
+    private router: Router
+  ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getUsersName();
+  }
 
   login() {
     this.authService.login(this.modelll).subscribe(
       next => {
-        console.log("Logged in");
+        this.usersName = this.authService.getTokenInfo().unique_name;
+        this.alertify.success("Welcome!");
       },
       error => {
-        console.log(error);
+        this.alertify.error("This email/password combination is not valid");
+      }, () => {
+        this.router.navigate(['/matches']);
       }
     );
   }
 
   loggedIn() {
-    if (localStorage.getItem("token") !== "" && localStorage.getItem("token")) {
-      return true;
-    } else {
-      return false;
-    }
+    return this.authService.loggedIn();
   }
 
   logout() {
     localStorage.removeItem("token");
+    this.alertify.warning("Goodbye!");
+    this.router.navigate(['/home'])
+  }
+
+  getUsersName() {
+    if (localStorage.getItem("token") !== null) {
+      this.usersName = this.authService.getTokenInfo().unique_name;
+    } else {
+      return;
+    }
   }
 }

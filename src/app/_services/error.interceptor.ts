@@ -12,13 +12,20 @@ import { catchError } from "rxjs/operators";
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
+  // implementing the http interceptor created in angular 4.3
   intercept(
-    req: HttpRequest<any>,
+    // HttpInterceptor requires an intercept as its required method
+    req: HttpRequest<any>, // it takes a request so HTTPRequest<any>
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(
       catchError(error => {
         if (error instanceof HttpErrorResponse) {
+          if (error.status === 401) {
+            return throwError(
+              "The Email and password combination is not corrected"
+            );
+          }
           const applicationError = error.headers.get("Application-Error");
           if (applicationError) {
             console.error(applicationError);

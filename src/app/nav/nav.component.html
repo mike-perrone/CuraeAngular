@@ -1,65 +1,80 @@
-<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-  <a class="navbar-brand" href="#">Firal</a>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand" [routerLink]="['/home']">Firal</a>
 
-  <ul class="navbar-nav mr-auto">
-    <li class="nav-item active">
-      <a class="nav-link" href="#">
-        Matches
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">Lists</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">Messages</a>
-    </li>
-  </ul>
-  <div *ngIf="loggedIn()" class="dropdown">
-    <button
-      class="btn btn-secondary dropdown-toggle"
-      (click)="logout()"
-      type="button"
-    >
-      Logout user
-    </button>
-    <div class="dropdown-menu">
-      <a class="dropdown-item" href="#"
-        ><i className="fa fa-user"></i> Edit ProfileEdit Profile</a
-      >
-      <a class="dropdown-item" href="#"> Edit Profile</a>
-      <a class="dropdown-item" href="#"
-        ><i clssName="fa fa-signout"></i> Logout</a
-      >
+    <ul *ngIf="loggedIn()" class="navbar-nav mr-auto">
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['/matches']">
+          Matches
+        </a>
+      </li>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['/likes']">Lists</a>
+      </li>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['/messages']">Messages</a>
+      </li>
+    </ul>
+    <div *ngIf="loggedIn()" class="dropdown">
+      <div class="btn-group" dropdown>
+        <button
+          dropdownToggle
+          class="btn btn-secondary dropdown-toggle"
+          aria-controls="dropdown-basic"
+          type="button"
+        >
+          Hi {{ usersName }} !
+        </button>
+        <ul
+          id="dropdown-basic"
+          *dropdownMenu
+          class="dropdown-menu moveOver mt-3"
+          role="menu"
+          aria-labelledby="button-basic"
+        >
+          <li role="menuitem"><a class="dropdown-item" href="#">Action</a></li>
+          <li role="menuitem">
+            <a class="dropdown-item" href="#">Another action</a>
+          </li>
+          <li role="menuitem">
+            <a class="dropdown-item" href="#">Something else here</a>
+          </li>
+          <li class="divider dropdown-divider"></li>
+          <li role="menuitem">
+            <a (click)="logout()" class="dropdown-item" href="#">Logout</a>
+          </li>
+        </ul>
+      </div>
     </div>
-  </div>
-  <form
-    *ngIf="!loggedIn()"
-    #loginForm="ngForm"
-    class="form-inline mt-2 mt-md-0"
-    (ngSubmit)="login()"
-  >
-    <input
-      class="form-control mr-sm-2"
-      type="text"
-      name="Username"
-      placeholder="Email"
-      required
-      [(ngModel)]="modelll.username"
-    />
-    <input
-      class="form-control mr-sm-2"
-      type="text"
-      name="password"
-      placeholder="Password"
-      required
-      [(ngModel)]="modelll.password"
-    />
-    <button
-      [disabled]="!loginForm.valid"
-      class="btn btn-outline-success my-2 my-sm-0"
-      type="submit"
+    <form
+      *ngIf="!loggedIn()"
+      #loginForm="ngForm"
+      class="form-inline mt-2 mt-md-0"
+      (ngSubmit)="login()"
     >
-      Login
-    </button>
-  </form>
+      <input
+        class="form-control mr-sm-2"
+        type="text"
+        name="Username"
+        placeholder="Email"
+        required
+        [(ngModel)]="modelll.username"
+      />
+      <input
+        class="form-control mr-sm-2"
+        type="text"
+        name="password"
+        placeholder="Password"
+        required
+        [(ngModel)]="modelll.password"
+      />
+      <button
+        [disabled]="!loginForm.valid"
+        class="btn btn-outline-success my-2 my-sm-0"
+        type="submit"
+      >
+        Login
+      </button>
+    </form>
+  </div>
 </nav>

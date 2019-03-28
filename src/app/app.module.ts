@@ -8,17 +8,38 @@ import { AuthService } from "./_services/auth.service";
 import { HomeComponent } from "./home/home.component";
 import { RegisterComponent } from "./register/register.component";
 import { ErrorInterceptorProvider } from "./_services/error.interceptor";
+import { AlertifyService } from "./_services/alertify.service";
+import { BsDropdownModule } from "ngx-bootstrap";
+import { MatchesComponent } from "./matches/matches.component";
+import { LikesListComponent } from "./likesList/likesList.component";
+import { MessagesComponent } from "./messages/messages.component";
+import { appRoutes } from "./routes";
+import { RouterModule } from "@angular/router";
+import { AuthGuard } from "./_guards/auth.guard";
 
 @NgModule({
   declarations: [
     AppComponent,
-    //automaticallyaddsvalueComponentintomodule.tswhenwegeneratecomponent,
     NavComponent,
     HomeComponent,
-    RegisterComponent
+    RegisterComponent,
+    MatchesComponent,
+    LikesListComponent,
+    MessagesComponent
   ],
-  imports: [BrowserModule, HttpClientModule, FormsModule],
-  providers: [AuthService, ErrorInterceptorProvider],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    FormsModule,
+    BsDropdownModule.forRoot(),
+    RouterModule.forRoot(appRoutes)
+  ],
+  providers: [
+    AuthService,
+    ErrorInterceptorProvider,
+    AlertifyService,
+    AuthGuard
+  ],
   bootstrap: [
     AppComponent //d
   ]
