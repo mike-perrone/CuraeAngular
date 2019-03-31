@@ -10,12 +10,14 @@ import { RegisterComponent } from "./register/register.component";
 import { ErrorInterceptorProvider } from "./_services/error.interceptor";
 import { AlertifyService } from "./_services/alertify.service";
 import { BsDropdownModule } from "ngx-bootstrap";
-import { MatchesComponent } from "./matches/matches.component";
+import { MatchesComponent } from "./members/matches/matches.component";
 import { LikesListComponent } from "./likesList/likesList.component";
 import { MessagesComponent } from "./messages/messages.component";
 import { appRoutes } from "./routes";
 import { RouterModule } from "@angular/router";
 import { AuthGuard } from "./_guards/auth.guard";
+import { UserService } from "./_services/user.service";
+import { MemberCardComponent } from "./members/member-card/member-card.component";
 
 @NgModule({
   declarations: [
@@ -25,7 +27,8 @@ import { AuthGuard } from "./_guards/auth.guard";
     RegisterComponent,
     MatchesComponent,
     LikesListComponent,
-    MessagesComponent
+    MessagesComponent,
+    MemberCardComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +41,8 @@ import { AuthGuard } from "./_guards/auth.guard";
     AuthService,
     ErrorInterceptorProvider,
     AlertifyService,
-    AuthGuard
+    AuthGuard,
+    UserService
   ],
   bootstrap: [
     AppComponent //d
