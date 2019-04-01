@@ -24,6 +24,7 @@
     "alertifyjs": "^1.11.2",
     "core-js": "^2.5.4",
     "ngx-bootstrap": "^3.0.1",
+    "ngx-gallery": "^5.9.1",
     "rxjs": "6.3.3",
     "zone.js": "^0.8.26"
   },
